@@ -1,0 +1,10 @@
+version: "3"
+services:
+  java:
+    image: amazoncorretto:21
+    container_name: java21
+    ports:
+      - 8000:8000
+    tty: true
+    volumes:
+      - ..:/workspace:cached

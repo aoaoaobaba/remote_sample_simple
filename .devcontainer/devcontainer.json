@@ -1,0 +1,13 @@
+{
+    "name": "java",
+    "dockerComposeFile": ["../docker/docker-compose.yml"],
+    "service": "java",
+    "workspaceFolder": "/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"vscjava.vscode-java-pack"
+			]
+		}
+	}
+}
