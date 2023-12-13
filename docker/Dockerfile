@@ -1,11 +1,12 @@
 ARG JAVA_VERSION="21"
 FROM amazoncorretto:${JAVA_VERSION}
 
+RUN yum install -y shadow-utils tar
+
 # Create the user
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-RUN yum install -y shadow-utils tar
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     #
@@ -14,6 +15,9 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && yum install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Git
+RUN yum install -y git
 
 # SSH
 # https://code.visualstudio.com/remote/advancedcontainers/sharing-git-credentials

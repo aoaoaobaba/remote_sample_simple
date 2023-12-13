@@ -12,5 +12,6 @@
 				"eamodio.gitlens"
 			]
 		}
-	}
+	},
+	"postCreateCommand": "sudo chown -R aoba:aoba /workspace"
 }
