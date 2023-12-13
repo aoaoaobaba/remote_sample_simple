@@ -1,8 +1,8 @@
 version: "3"
 services:
-  # java
-  java:
-    container_name: java21
+  # app
+  app:
+    container_name: appjava21
     build:
       context: .
       dockerfile: Dockerfile
