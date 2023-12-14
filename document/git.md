@@ -1,26 +1,29 @@
-# GitHubに接続する方法についてメモ
+# RemoteContainer で Gitを使う＆GitHub接続する
 
-## 概要
+## 大まかな流れ（SSH）
 
-- SSH キーを生成（ホストマシン）
-- GitHub に公開鍵を登録（ホストマシン）
-- SSH キーを ssh-agent に追加（ホストマシン）
-- ssh-agent がログイン時に起動されるようにする（リモートマシン）
-  - Visual Studio Code の Remote Containers 拡張機能がホストの資格情報を共有してくれるので SSH の再設定は不要
+- SSH キーを生成 ＠ホスト（ローカル）マシン
+- GitHub に公開鍵を登録 ＠ホスト（ローカル）マシン
+- SSH キーを ssh-agent に追加 ＠ホスト（ローカル）マシン
+- git をインストール ＠リモートマシン
+  - Dockerfile にインストール処理を記述
+- ssh-agent を起動 ＠リモートマシン
+  - `~/.bash_profile` に自動的に起動する処理を追記
+  - Visual Studio Code の Remote Containers 拡張機能がホストの資格情報を共有してくれるので、リモートマシンで SSH の再設定はしなくていい
 
-参考：
+### 参考
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=windows
 
+## 各手順メモ
 
-## 新しい SSH キーの生成
+### SSH キーを生成 ＠ホスト（ローカル）マシン
 
 ```powershell
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-## SSH キーを ssh-agent に追加
+### SSH キーを ssh-agent に追加 ＠ホスト（ローカル）マシン
 
-PowerShell（管理者）で以下を実施
 ```powershell
 # ssh-agent を起動
 Get-Service -Name ssh-agent | Set-Service -StartupType Manual
@@ -32,9 +35,18 @@ Start-Service ssh-agent
 ssh-add /c/Users/YOU/.ssh/id_ed25519
 ```
 
-## ssh-agent がログイン時に起動されるようにする
+### git をインストール ＠リモートマシン
 
-~/.bash_profile に以下を記述
+Dockerfile に以下を記述<br>
+（パッケージによってバージョンが古くなる落とし穴があるようなので注意）
+```
+# Git
+RUN yum install -y git
+```
+
+### ssh-agent を起動 ＠リモートマシン
+
+`~/.bash_profile` に以下を記述することで、ログイン時に起動するようになる
 ```bash
 if [ -z "$SSH_AUTH_SOCK" ]; then
    # Check for a currently running instance of the agent
@@ -47,5 +59,5 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 ```
 
-上記内容を、Dockerfileに設定している
+Dockerfile で、~/.bash_profile に上記ロジックを追記する処理を記述
 ![Dockerfile](image.png)
