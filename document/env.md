@@ -25,7 +25,6 @@ devcontainer.json、docker-compose.yml、Dockerfile に登場する変数につ�
 
     ```:.env
     HOGE=hoge
-    FUGA="fuga"
     ```
 
 ## docker-compose.yml で扱う変数
