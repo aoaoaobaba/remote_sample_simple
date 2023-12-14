@@ -1,9 +1,13 @@
 {
-    "name": "java app remote",
-    "dockerComposeFile": ["../docker/docker-compose.yml"],
-    "service": "app",
+	"name": "java app remote",
+	"dockerComposeFile": [
+		"../docker/docker-compose.yml"
+	],
+	"service": "app",
 	"workspaceFolder": "/workspace",
-	"forwardPorts": [8080],
+	"forwardPorts": [
+		8080
+	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
