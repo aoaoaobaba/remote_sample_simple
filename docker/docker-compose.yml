@@ -1,8 +1,22 @@
 version: "3"
 services:
-  # app
-  app:
-    container_name: javaapp
+  # mysql
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql
+    build:
+      context: ./mysql/
+    env_file:
+      - ./mysql/db.env
+    ports:
+      - "${DB_PORT-3306}:3306"
+    volumes:
+      - ./mysql/config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./mysql/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - ./mysql/data:/var/lib/mysql # 実データの永続化
+      - ./mysql/log:/var/log/mysql # logの永続化
+  # java
+  java:
+    container_name: ${COMPOSE_PROJECT_NAME}-java
     build:
       context: ./java/
       args:
@@ -10,9 +24,13 @@ services:
         USER_NAME: ${USER_NAME}
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
+    env_file:
+      - ./mysql/db.env
     ports:
       - 8080:8080
     tty: true
     volumes:
       - ..:/workspace:cached
     working_dir: /workspace
+    depends_on:
+      - mysql # mysql の後で起動

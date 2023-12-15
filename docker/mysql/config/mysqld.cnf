@@ -1,0 +1,26 @@
+[mysqld]
+
+# PIDファイルの場所
+pid-file=/var/run/mysqld/mysqld.pid
+# UNIX ソケットファイルの場所
+socket=/var/run/mysqld/mysqld.sock
+# データベースのデータの場所
+datadir=/var/lib/mysql
+
+# 一般ログを有効にする
+general_log=1
+general_log_file=/var/log/mysql/general.log
+
+# エラーログ
+log-error=/var/log/mysql/error.log
+
+# 文字セットをUTF-8 の4バイト対応版（utf8mb4）に設定
+character-set-server=utf8mb4
+# 文字照合順序をバイナリにに設定（厳密な比較）
+collation-server=utf8mb4_bin
+
+# シンボリックリンク禁止
+symbolic-links=0
+
+# By default we only accept connections from localhost
+#bind-address=127.0.0.1

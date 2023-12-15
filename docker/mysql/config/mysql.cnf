@@ -1,0 +1,5 @@
+[mysql]
+
+[client]
+# クライアントの文字セットをUTF-8 の4バイト対応版（utf8mb4）に設定
+default-character-set=utf8mb4
