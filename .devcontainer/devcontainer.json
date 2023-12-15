@@ -13,8 +13,13 @@
 			"extensions": [
 				"vscjava.vscode-java-pack",
 				"donjayamanne.githistory",
-				"eamodio.gitlens"
-			]
+				"eamodio.gitlens",
+				"richardwillis.vscode-gradle-extension-pack"
+			],
+			"settings": {
+				// gradle 拡張機能のサイドメニューが出るようにする
+				"gradle.nestedProjects": true
+			}
 		}
 	}
 }
