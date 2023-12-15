@@ -43,7 +43,7 @@ RUN { \
 # ユーザーを切り替え
 USER $USER_NAME
 
-# Spring Boot の場合は後述の Gradle ラッパーが含まれているため Gradle のインストールは不要
+# Spring Boot の場合は Gradle ラッパーが含まれているため Gradle のインストールは不要
 
 # 作業ディレクトリの設定
 WORKDIR /workspace
