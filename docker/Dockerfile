@@ -2,15 +2,17 @@
 ARG JAVA_VERSION=21
 FROM amazoncorretto:${JAVA_VERSION}
 
+# タイムゾーンの設定
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
 # 必要なパッケージをインストール
-ARG SDKMAN_PKG="zip unzip findutils"
-ARG DEV_PKG="tar which man make less"
+ARG DEV_PKG="tar"
 RUN yum update -y && \
     yum install -y sudo \
     git \
     openssh-server \
     openssh-clients \
-    ${SDKMAN_PKG} ${DEV_PKG}
+    ${DEV_PKG}
 
 # ユーザー情報のビルド引数を定義
 ARG USER_NAME=vscode
@@ -41,13 +43,7 @@ RUN { \
 # ユーザーを切り替え
 USER $USER_NAME
 
-# ユーザーのホームディレクトリにSDKMANをインストール
-# .bashrc に sdkman-init.sh の実行を追加
-# sdkman-init.sh を実行し、Gradleをセットアップ
-ENV SDKMAN_DIR=$HOME_DIR/.sdkman
-RUN curl -s "https://get.sdkman.io" | bash && \
-    echo "source $SDKMAN_DIR/bin/sdkman-init.sh" >> $HOME_DIR/.bashrc && \
-    bash -c "source $SDKMAN_DIR/bin/sdkman-init.sh && sdk install gradle"
+# Spring Boot の場合は後述の Gradle ラッパーが含まれているため Gradle のインストールは不要
 
 # 作業ディレクトリの設定
 WORKDIR /workspace
