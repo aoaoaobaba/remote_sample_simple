@@ -23,7 +23,7 @@ RUN groupadd --gid $USER_GID $USER_NAME && \
     useradd --uid $USER_UID --gid $USER_GID -m $USER_NAME && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER_NAME
 
-# SSH接続のセットアップ
+# GitHub用のSSH接続設定
 RUN { \
     echo ''; \
     echo '# Launch ssh-agent'; \
