@@ -1,7 +1,5 @@
 FROM mysql:8
 
-RUN microdnf update -y
-
 # 3306 ポートを使用
 EXPOSE 3306
 

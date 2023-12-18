@@ -1,0 +1,12 @@
+# DB接続情報
+spring:
+  dataSource:
+    url: jdbc:mysql://mysql:3306/sample_schema
+    username: dev_usr
+    password: dev_usr_pass
+    sql-script-encoding: utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
