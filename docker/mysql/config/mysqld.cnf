@@ -7,6 +7,14 @@ socket=/var/run/mysqld/mysqld.sock
 # データベースのデータの場所
 datadir=/var/lib/mysql
 
+# シンボリックリンク禁止
+symbolic-links=0
+
+# 文字セットをUTF-8 の4バイト対応版（utf8mb4）に設定
+character-set-server=utf8mb4
+# 文字照合順序をバイナリにに設定（厳密な比較）
+collation-server=utf8mb4_bin
+
 # 一般ログを有効にする
 general_log=1
 general_log_file=/var/log/mysql/general.log
@@ -14,13 +22,13 @@ general_log_file=/var/log/mysql/general.log
 # エラーログ
 log-error=/var/log/mysql/error.log
 
-# 文字セットをUTF-8 の4バイト対応版（utf8mb4）に設定
-character-set-server=utf8mb4
-# 文字照合順序をバイナリにに設定（厳密な比較）
-collation-server=utf8mb4_bin
-
-# シンボリックリンク禁止
-symbolic-links=0
-
-# By default we only accept connections from localhost
+# ローカルホスト（同じマシン上のクライアント）からの接続のみを受け付ける
 #bind-address=127.0.0.1
+
+# クライアントのホスト名解決キャッシュ（DNSキャッシュ）を無効にする
+host_cache_size=0
+
+[client]
+
+# クライアントの文字セットをUTF-8 の4バイト対応版（utf8mb4）に設定
+default-character-set=utf8mb4

@@ -10,10 +10,7 @@ services:
     ports:
       - "${DB_PORT-3306}:3306"
     volumes:
-      - ./mysql/config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-      - ./mysql/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
-      - ./mysql/data:/var/lib/mysql # 実データの永続化
-      - ./mysql/log:/var/log/mysql # logの永続化
+      - mysql-local:/var/lib/mysql # 実データの永続化（名前付きボリュームを指定）
   # java
   java:
     container_name: ${COMPOSE_PROJECT_NAME}-java
@@ -34,3 +31,7 @@ services:
     working_dir: /workspace
     depends_on:
       - mysql # mysql の後で起動
+
+# 名前付きボリューム
+volumes:
+  mysql-local:

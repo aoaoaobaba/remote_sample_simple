@@ -1,6 +1,6 @@
 CREATE DATABASE
  IF NOT EXISTS sample_schema
- CHARACTER SET utf8
+ CHARACTER SET utf8mb4
  COLLATE utf8mb4_bin;
 
 USE sample_schema;

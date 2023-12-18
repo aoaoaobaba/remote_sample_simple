@@ -2,9 +2,6 @@
 ARG JAVA_VERSION=21
 FROM amazoncorretto:${JAVA_VERSION}
 
-# タイムゾーンの設定
-RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-
 # 必要なパッケージをインストール
 ARG DEV_PKG="tar"
 RUN yum update -y && \
