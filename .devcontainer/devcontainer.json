@@ -18,7 +18,23 @@
 			],
 			"settings": {
 				// gradle 拡張機能のサイドメニューが出るようにする
-				"gradle.nestedProjects": true
+				"gradle.nestedProjects": true,
+				// 行末の空白削除
+				"files.trimTrailingWhitespace": true,
+				// データを Red Hat に送信しない
+				"redhat.telemetry.enabled": false,
+				// java のフォーマッター
+				"java.format.settings.url": "settings/eclipse-java-google-style.xml",
+				"java.format.settings.profile": "GoogleStyle",
+				// java ファイル
+				"[java]": {
+					// 保存時に自動的にフォーマット
+					"editor.formatOnSave": true,
+					// 貼りつけ時に自動的にフォーマット
+					"editor.formatOnPaste": true,
+					// コード入力中に自動フォーマット
+					"editor.formatOnType": true
+				}
 			}
 		}
 	}

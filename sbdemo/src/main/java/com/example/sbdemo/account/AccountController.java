@@ -1,4 +1,4 @@
-package com.example.sbdemo;
+package com.example.sbdemo.account;
 
 import java.util.List;
 
@@ -21,8 +21,7 @@ public class AccountController {
     @GetMapping("/account/{id}")
     public Account getAccount(@PathVariable Integer id) {
         log.info("getAccount");
-        Account account = new Account();
-        account.setAccountId(id);
+        Account account = Account.builder().accountId(id).build();
         return accountService.findById(account);
     }
 

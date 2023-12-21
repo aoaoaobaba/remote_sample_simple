@@ -1,4 +1,4 @@
-package com.example.sbdemo;
+package com.example.sbdemo.account;
 
 import java.util.List;
 
