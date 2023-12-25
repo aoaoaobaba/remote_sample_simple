@@ -1,7 +1,7 @@
 version: "3"
 
 ##################################################
-# docker compose 設定
+# docker compose 設定（開発環境）
 #-------------------------------------------------
 # メモ：
 # このファイルで利用している変数は
@@ -47,7 +47,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-nextjs
     build:
       context: ../nextjs/
-      target: dev # Dockerfileに定義されたdevステージの設定を利用
+      target: dev
     ports:
       - 3000:3000
     tty: true
@@ -66,7 +66,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-mysql
     build:
       context: ../mysql/
-      target: dev # Dockerfileに定義されたdevステージの設定を利用
+      target: dev
     env_file:
       - ./db.env
     ports:
