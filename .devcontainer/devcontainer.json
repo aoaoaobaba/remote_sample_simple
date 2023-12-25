@@ -10,12 +10,14 @@
 	],
 	"customizations": {
 		"vscode": {
+			// リモート環境で利用する拡張機能
 			"extensions": [
 				"vscjava.vscode-java-pack",
 				"donjayamanne.githistory",
 				"eamodio.gitlens",
 				"richardwillis.vscode-gradle-extension-pack"
 			],
+			// リモート環境の設定
 			"settings": {
 				// gradle 拡張機能のサイドメニューが出るようにする
 				"gradle.nestedProjects": true,
