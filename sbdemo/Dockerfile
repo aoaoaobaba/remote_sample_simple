@@ -3,7 +3,7 @@ ARG JAVA_VERSION=21
 FROM amazoncorretto:${JAVA_VERSION} as base
 
 # 作業ディレクトリの設定
-WORKDIR /workspace
+WORKDIR /workspace/sbdemo
 
 # パッケージを最新の状態にアップデート
 RUN yum update -y
@@ -14,6 +14,7 @@ RUN yum update -y
 FROM base as dev
 
 # 開発に必要なパッケージをインストール
+# Spring Boot の場合は Gradle ラッパーが含まれているため Gradle のインストールは不要
 ARG DEV_PKG="tar"
 RUN yum install -y sudo \
     git \
@@ -21,10 +22,13 @@ RUN yum install -y sudo \
     openssh-clients \
     ${DEV_PKG}
 
+#------------------------------
+# ユーザ作成
+#------------------------------
 # ビルド引数からユーザー情報を取得
 # （引数が渡されたらその値、渡されなかったらここで指定した値が有効）
 ARG USER_NAME=vscode
-ARG USER_UID=1000
+ARG USER_UID=550904
 ARG USER_GID=$USER_UID
 ARG HOME_DIR=/home/$USER_NAME
 
@@ -32,6 +36,12 @@ ARG HOME_DIR=/home/$USER_NAME
 RUN groupadd --gid $USER_GID $USER_NAME && \
     useradd --uid $USER_UID --gid $USER_GID -m $USER_NAME && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER_NAME
+
+#------------------------------
+# Git設定
+#------------------------------
+# Gitのグローバル設定を行う
+RUN git config --global --add safe.directory /workspace
 
 # GitHub用のSSH接続設定
 RUN { \
@@ -50,5 +60,3 @@ RUN { \
 
 # ユーザーを切り替え
 USER $USER_NAME
-
-# Spring Boot の場合は Gradle ラッパーが含まれているため Gradle のインストールは不要

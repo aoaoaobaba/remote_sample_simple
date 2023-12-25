@@ -1,0 +1,33 @@
+{
+	"name": "NEXT.JS remote",
+	"dockerComposeFile": [
+		"../../docker/docker-compose.yml"
+	],
+	"service": "frontend",
+	"workspaceFolder": "/workspace",
+	"forwardPorts": [
+		3000
+	],
+	"customizations": {
+		"vscode": {
+			// リモート環境で利用する拡張機能
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"donjayamanne.githistory",
+				"eamodio.gitlens",
+				"richardwillis.vscode-gradle-extension-pack"
+			],
+			// リモート環境の設定
+			"settings": {
+				// 行末の空白削除
+				"files.trimTrailingWhitespace": true,
+				// 保存時に自動的にフォーマット
+				"editor.formatOnSave": true,
+				// 貼りつけ時に自動的にフォーマット
+				"editor.formatOnPaste": true,
+				// コード入力中に自動フォーマット
+				"editor.formatOnType": true
+			}
+		}
+	}
+}

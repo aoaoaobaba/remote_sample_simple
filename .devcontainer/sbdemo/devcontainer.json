@@ -1,0 +1,43 @@
+{
+	"name": "Spring Boot remote",
+	"dockerComposeFile": [
+		"../../docker/docker-compose.yml"
+	],
+	"service": "backend",
+	"workspaceFolder": "/workspace",
+	"forwardPorts": [
+		8080
+	],
+	"customizations": {
+		"vscode": {
+			// リモート環境で利用する拡張機能
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"donjayamanne.githistory",
+				"eamodio.gitlens",
+				"richardwillis.vscode-gradle-extension-pack"
+			],
+			// リモート環境の設定
+			"settings": {
+				// gradle 拡張機能のサイドメニューが出るようにする
+				"gradle.nestedProjects": true,
+				// 行末の空白削除
+				"files.trimTrailingWhitespace": true,
+				// データを Red Hat に送信しない
+				"redhat.telemetry.enabled": false,
+				// java のフォーマッター
+				"java.format.settings.url": ".settings/eclipse-java-google-style.xml",
+				"java.format.settings.profile": "GoogleStyle",
+				// java ファイル
+				"[java]": {
+					// 保存時に自動的にフォーマット
+					"editor.formatOnSave": true,
+					// 貼りつけ時に自動的にフォーマット
+					"editor.formatOnPaste": true,
+					// コード入力中に自動フォーマット
+					"editor.formatOnType": true
+				}
+			}
+		}
+	}
+}
