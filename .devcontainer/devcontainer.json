@@ -24,7 +24,7 @@
 				// データを Red Hat に送信しない
 				"redhat.telemetry.enabled": false,
 				// java のフォーマッター
-				"java.format.settings.url": "settings/eclipse-java-google-style.xml",
+				"java.format.settings.url": ".settings/eclipse-java-google-style.xml",
 				"java.format.settings.profile": "GoogleStyle",
 				// java ファイル
 				"[java]": {
