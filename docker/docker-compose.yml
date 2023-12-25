@@ -1,37 +1,76 @@
+##################################################
+# このファイルで利用する変数はローカルの環境変数
+# （.env ファイルで、すでにある定義にさらに定義を追加している）
+##################################################
 version: "3"
+
+##############################
+# サービス
+##############################
 services:
-  # mysql
-  mysql:
-    container_name: ${COMPOSE_PROJECT_NAME}-mysql
-    build:
-      context: ./mysql/
-    env_file:
-      - ./mysql/db.env
-    ports:
-      - "${DB_PORT-3306}:3306"
-    volumes:
-      - mysql-local:/var/lib/mysql # 実データの永続化（名前付きボリュームを指定）
+
+  ##############################
   # java
-  java:
+  ##############################
+  backend:
     container_name: ${COMPOSE_PROJECT_NAME}-java
     build:
-      context: ./java/
+      context: ../sbdemo/
+      target: dev # Dockerfileに定義されたdevステージの設定を利用
       args:
+        # Dockerfile に渡すビルド引数
         JAVA_VERSION: ${JAVA_VERSION}
         USER_NAME: ${USER_NAME}
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
-    env_file:
-      - ./mysql/db.env
     ports:
       - 8080:8080
     tty: true
     volumes:
-      - ..:/workspace:cached
+      - type: bind
+        source: ..
+        target: /workspace
+        consistency: cached
     working_dir: /workspace
     depends_on:
       - mysql # mysql の後で起動
 
+  ##############################
+  # nextjs
+  ##############################
+  frontend:
+    container_name: ${COMPOSE_PROJECT_NAME}-nextjs
+    build:
+      context: ../nextjs/
+      target: dev # Dockerfileに定義されたdevステージの設定を利用
+    ports:
+      - 3000:3000
+    tty: true
+    volumes:
+      - type: bind
+        source: ..
+        target: /workspace
+        consistency: cached
+    working_dir: /workspace
+    stdin_open: true # 標準入力（stdin）を開く
+
+  ##############################
+  # mysql
+  ##############################
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql
+    build:
+      context: ../mysql/
+      target: dev # Dockerfileに定義されたdevステージの設定を利用
+    env_file:
+      - ./db.env
+    ports:
+      - "${DB_PORT-3306}:3306"
+    volumes:
+      - mysql-local:/var/lib/mysql # 実データの永続化（名前付きボリュームを指定）
+
+##############################
 # 名前付きボリューム
+##############################
 volumes:
   mysql-local:

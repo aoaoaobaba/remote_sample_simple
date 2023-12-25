@@ -3,7 +3,7 @@
 	"dockerComposeFile": [
 		"../docker/docker-compose.yml"
 	],
-	"service": "java",
+	"service": "backend",
 	"workspaceFolder": "/workspace",
 	"forwardPorts": [
 		8080
