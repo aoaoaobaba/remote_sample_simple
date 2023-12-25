@@ -13,10 +13,10 @@ FROM base as dev
 
 ENV NODE_ENV=development
 
-# # パッケージ定義ファイルをコピー
-# COPY package.json yarn.lock* .nextjs/
+# パッケージ定義ファイルをコピー
+COPY package.json yarn.lock* .nextjs/
 
-# # 依存関係をインストール
-# RUN if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-#     else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
-#     fi
+# 依存関係をインストール
+RUN if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+    else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
+    fi
